@@ -1,0 +1,12 @@
+# Dependency directory
+node_modules
+
+# OS metadata
+.DS_Store
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# API keys and secrets
+.env
