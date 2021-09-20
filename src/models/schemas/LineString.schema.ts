@@ -9,6 +9,7 @@ export const LineStringSchema = new mongoose.Schema<LineStringDocument>({
   type: {
     type: String,
     enum: ["LineString"],
+    default: "LineString",
     required: true,
   },
   coordinates: {

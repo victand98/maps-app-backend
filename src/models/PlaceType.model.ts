@@ -13,6 +13,7 @@ const PlaceTypeSchema = new mongoose.Schema<PlaceTypeDocument>(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     description: String,
     icon: {
