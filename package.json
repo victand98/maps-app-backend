@@ -19,7 +19,6 @@
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
     "@types/pino": "^6.3.11",
-    "morgan": "^1.10.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
@@ -30,6 +29,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "mongoose": "^6.0.6",
+    "morgan": "^1.10.0",
     "pino": "^6.13.2",
     "pino-pretty": "^7.0.1"
   }
