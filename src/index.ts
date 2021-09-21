@@ -6,7 +6,7 @@ import log from "./utils/logger";
 const port = config.get("port") as number;
 const host = config.get("host") as string;
 
-app.listen(port, host, () => {
+app.listen(port, () => {
   log.info(`Server started at http://${host}:${port}`);
   connect();
 });
