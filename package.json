@@ -20,7 +20,6 @@
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
     "@types/pino": "^6.3.11",
-    "@types/pino-pretty": "^4.7.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
