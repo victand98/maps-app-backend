@@ -10,3 +10,6 @@ yarn.lock
 
 # API keys and secrets
 .env
+
+# Production build
+/dist
