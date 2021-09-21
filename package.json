@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config nodemon.json src/index.ts",
     "postinstall": "tsc",
-    "start": "node dist/src/index.js",
+    "start": "ts-node src/index.ts",
     "deploy": "git push heroku main"
   },
   "keywords": [],
