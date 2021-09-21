@@ -34,7 +34,7 @@
     "pino-pretty": "^7.0.1"
   },
   "engines": {
-    "node": "14.16.1"
-  },
-  "type": "module"
+    "node": "14.16.1",
+    "npm": "7.24.0"
+  }
 }
