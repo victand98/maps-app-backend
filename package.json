@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config nodemon.json src/index.ts",
-    "build": "tsc -p .",
+    "build": "tsc",
     "start": "node dist/src/index.js"
   },
   "keywords": [],
@@ -34,6 +34,6 @@
     "pino-pretty": "^7.0.1"
   },
   "engines": {
-    "node": "12.16.3"
+    "node": "14.17.6"
   }
 }
