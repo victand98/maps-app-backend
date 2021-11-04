@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface LineStringDocument extends mongoose.Document {
   type: string;
-  coordinates: number[][][];
+  coordinates: number[][];
 }
 
 export const LineStringSchema = new mongoose.Schema<LineStringDocument>({
@@ -13,7 +13,7 @@ export const LineStringSchema = new mongoose.Schema<LineStringDocument>({
     required: true,
   },
   coordinates: {
-    type: [[[Number]]],
+    type: [[Number]],
     required: true,
   },
 });
