@@ -6,7 +6,7 @@ import { Place } from "../models/Place.model";
  * @route GET /place/all
  */
 export const getPlaces = async (req: Request, res: Response) => {
-  const places = await Place.find().populate("placeType", "icon");
+  const places = await Place.find().populate("placeType");
   return res.status(200).json({ places });
 };
 
