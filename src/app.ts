@@ -20,18 +20,20 @@ app.use(
     stream: { write: (message: string) => log.info(message) },
   })
 );
+
 app.use(express.json());
 app.use(helmet());
 app.use(
   cors({
-    origin: config.get<string>("corsOrigin"),
+    origin: config.get<string>("corsOrigin").split(","),
     credentials: true,
   })
 );
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== "development",
+    // secure: process.env.NODE_ENV !== "development",
+    secure: false,
   })
 );
 
