@@ -1,21 +1,50 @@
 import { Request, Response } from "express";
-import { Place } from "../models/Place.model";
+import { NotFoundError } from "../helpers/errors";
+import { Place, PlaceAttrs } from "../models";
+import { CustomRequest } from "../types";
 
 /**
  * Get all places.
- * @route GET /place/all
+ * @route GET /place/
  */
-export const getPlaces = async (req: Request, res: Response) => {
-  const places = await Place.find().populate("placeType");
-  return res.status(200).json({ places });
+export const all = async (req: Request, res: Response) => {
+  const places = await Place.find().populate("type");
+  return res.json(places);
+};
+
+/**
+ * Get one place.
+ * @route GET /place/:id
+ */
+export const one = async (req: Request, res: Response) => {
+  const place = await Place.findById(req.params.id).populate("type");
+
+  if (!place) throw new NotFoundError();
+
+  res.json(place);
 };
 
 /**
  * Save one place.
- * @route POST /place/save
+ * @route POST /place/
  */
-export const savePlace = async (req: Request, res: Response) => {
-  const newPlace = new Place(req.body);
-  await newPlace.save();
-  return res.json({ message: "El lugar se ha registrado con éxito", newPlace });
+export const save = async (req: CustomRequest<PlaceAttrs>, res: Response) => {
+  const place = Place.build(req.body);
+  await place.save();
+
+  return res.status(201).json(place);
+};
+
+/**
+ * Remove one place.
+ * @route DELETE /place/:id
+ */
+export const remove = async (req: CustomRequest<PlaceAttrs>, res: Response) => {
+  const place = await Place.findById(req.params.id);
+
+  if (!place) throw new NotFoundError();
+
+  await place.remove();
+
+  res.status(202).json(place);
 };

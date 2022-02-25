@@ -1,17 +1,28 @@
 import mongoose from "mongoose";
-import { PlaceTypeDocument } from "./PlaceType.model";
+import { PlaceTypeDoc } from "./PlaceType.model";
 import { PointDocument, PointSchema } from "./schemas/Point.schema";
 
-export interface PlaceDocument extends mongoose.Document {
+interface PlaceAttrs {
   name: string;
   formattedAddress?: string;
   location: PointDocument;
-  placeType: PlaceTypeDocument["_id"];
-  createdAt: Date;
-  updatedAt: Date;
+  type: PlaceTypeDoc;
 }
 
-const PlaceSchema = new mongoose.Schema<PlaceDocument>(
+interface PlaceModel extends mongoose.Model<PlaceDoc> {
+  build(attrs: PlaceAttrs): PlaceDoc;
+}
+
+interface PlaceDoc extends mongoose.Document {
+  name: string;
+  formattedAddress?: string;
+  location: PointDocument;
+  type: PlaceTypeDoc;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const PlaceSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -22,12 +33,22 @@ const PlaceSchema = new mongoose.Schema<PlaceDocument>(
       type: PointSchema,
       required: true,
     },
-    placeType: {
-      type: mongoose.Types.ObjectId,
-      ref: "PlaceType",
-    },
+    type: { type: mongoose.Types.ObjectId, ref: "PlaceType", required: true },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+    discriminatorKey: "kind",
+  }
 );
 
-export const Place = mongoose.model<PlaceDocument>("Place", PlaceSchema);
+PlaceSchema.statics.build = (attrs: PlaceAttrs) => new Place(attrs);
+
+const Place = mongoose.model<PlaceDoc, PlaceModel>("Place", PlaceSchema);
+
+export { Place, PlaceAttrs, PlaceDoc };

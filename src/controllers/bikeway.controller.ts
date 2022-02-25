@@ -1,21 +1,23 @@
 import { Request, Response } from "express";
-import { Bikeway} from "../models/Bikeway.model";
+import { Bikeway, BikewayAttrs } from "../models";
+import { CustomRequest } from "../types";
 
 /**
  * Get all Bikeways.
- * @route GET /bikeway/all
+ * @route GET /bikeway/
  */
-export const getBikeways = async (req: Request, res: Response) => {
+export const all = async (req: Request, res: Response) => {
   const bikeways = await Bikeway.find();
-  return res.status(200).json({ bikeways });
+  return res.json(bikeways);
 };
 
 /**
  * Save one bikeway.
- * @route POST /bikeway/save
+ * @route POST /bikeway/
  */
-export const saveBikeway = async (req: Request, res: Response) => {
-  const newBikeway = new Bikeway(req.body);
-  await newBikeway.save();
-  return res.json({ message: "La ciclovía se ha registrado con éxito", newBikeway });
+export const save = async (req: CustomRequest<BikewayAttrs>, res: Response) => {
+  const bikeway = Bikeway.build(req.body);
+  await bikeway.save();
+
+  return res.status(201).json(bikeway);
 };

@@ -4,14 +4,23 @@ import {
   LineStringSchema,
 } from "./schemas/LineString.schema";
 
-export interface BikewayDocument extends mongoose.Document {
+interface BikewayAttrs {
   name: string;
   location: LineStringDocument;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
-const BikewaySchema = new mongoose.Schema<BikewayDocument>(
+interface BikewayModel extends mongoose.Model<BikewayDoc> {
+  build(attrs: BikewayAttrs): BikewayDoc;
+}
+
+interface BikewayDoc extends mongoose.Document {
+  name: string;
+  location: LineStringDocument;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const BikewaySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -22,10 +31,22 @@ const BikewaySchema = new mongoose.Schema<BikewayDocument>(
       required: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
-export const Bikeway = mongoose.model<BikewayDocument>(
+BikewaySchema.statics.build = (attrs: BikewayAttrs) => new Bikeway(attrs);
+
+const Bikeway = mongoose.model<BikewayDoc, BikewayModel>(
   "Bikeway",
   BikewaySchema
 );
+
+export { Bikeway, BikewayAttrs };

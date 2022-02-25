@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "config";
-import log from "../utils/logger";
+import log from "../helpers/logger";
 
 const connect = async () => {
   try {
@@ -14,4 +14,4 @@ const connect = async () => {
   }
 };
 
-export default connect;
+export { connect };

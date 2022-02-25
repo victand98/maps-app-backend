@@ -1,22 +1,51 @@
 import express from "express";
-import routes from "./routes";
+import "express-async-errors";
 import helmet from "helmet";
 import cors from "cors";
-import log from "./utils/logger";
 import morgan from "morgan";
+import cookieSession from "cookie-session";
+import config from "config";
+import log from "./helpers/logger";
+import routes from "./routes";
+import { currentUser, ErrorHandler } from "./middlewares";
+import { NotFoundError } from "./helpers/errors";
 
 const app = express();
 
+app.set("trust proxy", true);
+
+// middlewares
 app.use(
   morgan("dev", {
     stream: { write: (message: string) => log.info(message) },
   })
 );
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: config.get<string>("corsOrigin"),
+    credentials: true,
+  })
+);
+app.use(
+  cookieSession({
+    signed: false,
+    secure: process.env.NODE_ENV !== "development",
+  })
+);
 
+// verify if exists a current user
+app.use(currentUser);
+
+// app routes
 routes(app);
 
-export default app;
+// Not found error handler
+app.all("*", async (req, res) => {
+  throw new NotFoundError();
+});
+
+app.use(ErrorHandler);
+
+export { app };

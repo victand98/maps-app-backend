@@ -1,18 +1,30 @@
 import mongoose from "mongoose";
+import { PlaceTypes } from "../types";
 
-export interface PlaceTypeDocument extends mongoose.Document {
-  name: string;
+interface PlaceTypeAttrs {
+  name: PlaceTypes;
   description?: string;
   icon: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
-const PlaceTypeSchema = new mongoose.Schema<PlaceTypeDocument>(
+interface PlaceTypeModel extends mongoose.Model<PlaceTypeDoc> {
+  build(attrs: PlaceTypeAttrs): PlaceTypeDoc;
+}
+
+interface PlaceTypeDoc extends mongoose.Document {
+  name: PlaceTypes;
+  description?: string;
+  icon: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const PlaceTypeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
+      enum: Object.values(PlaceTypes),
       unique: true,
     },
     description: String,
@@ -21,10 +33,22 @@ const PlaceTypeSchema = new mongoose.Schema<PlaceTypeDocument>(
       required: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
-export const PlaceType = mongoose.model<PlaceTypeDocument>(
+PlaceTypeSchema.statics.build = (attrs: PlaceTypeAttrs) => new PlaceType(attrs);
+
+const PlaceType = mongoose.model<PlaceTypeDoc, PlaceTypeModel>(
   "PlaceType",
   PlaceTypeSchema
 );
+
+export { PlaceType, PlaceTypeAttrs, PlaceTypeDoc };

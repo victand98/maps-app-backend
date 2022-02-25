@@ -1,10 +1,14 @@
 import { Express } from "express";
-import placeRouter from "./place.route";
-import placeTypeRouter from "./placeType.route";
-import bikewayRouter from "./bikeway.route";
+import { authRouter } from "./auth.routes";
+import { bikewayRouter } from "./bikeway.routes";
+import { parkingPointRouter } from "./parkingPoint.routes";
+import { placeRouter } from "./place.routes";
+import { placeTypeRouter } from "./placeType.routes";
 
 export default (app: Express) => {
-  app.use("/place", placeRouter);
-  app.use("/place-type", placeTypeRouter);
+  app.use("/auth", authRouter);
   app.use("/bikeway", bikewayRouter);
+  app.use("/parkingpoint", parkingPointRouter);
+  app.use("/place", placeRouter);
+  app.use("/placetype", placeTypeRouter);
 };

@@ -1,5 +1,9 @@
 {
   "host": "127.0.0.1",
   "port": "4000",
-  "dbUri": "mongodb://localhost/mapsapp"
+  "dbUri": "mongodb://localhost/mapsapp",
+  "jwtKey": "",
+  "corsOrigin": "http://localhost:3000",
+  "adminEmail": "",
+  "adminPassword": ""
 }

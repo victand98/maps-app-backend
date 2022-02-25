@@ -5,15 +5,25 @@ export interface PointDocument extends mongoose.Document {
   coordinates: number[];
 }
 
-export const PointSchema = new mongoose.Schema<PointDocument>({
-  type: {
-    type: String,
-    enum: ["Point"],
-    default: "Point",
-    required: true,
+export const PointSchema = new mongoose.Schema<PointDocument>(
+  {
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
   },
-  coordinates: {
-    type: [Number],
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
