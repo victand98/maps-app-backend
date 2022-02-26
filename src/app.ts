@@ -27,11 +27,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? config.get<string>("corsOrigin").split(",")
-        : undefined,
-    credentials: process.env.NODE_ENV === "development" ? true : undefined,
+    origin: config.get<string>("corsOrigin").split(","),
+    credentials: true,
   })
 );
 app.use(
