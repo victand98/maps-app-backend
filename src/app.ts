@@ -21,20 +21,23 @@ app.use(
   })
 );
 
-log.info(config.get<string>("corsOrigin").split(","));
+console.info(config.get<string>("corsOrigin").split(","));
 
 app.use(express.json());
 app.use(helmet());
 app.use(
   cors({
-    origin: config.get<string>("corsOrigin").split(","),
-    credentials: true,
+    origin:
+      process.env.NODE_ENV === "development"
+        ? config.get<string>("corsOrigin").split(",")
+        : undefined,
+    credentials: process.env.NODE_ENV === "development" ? true : undefined,
   })
 );
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== "development",
+    secure: false,
   })
 );
 
