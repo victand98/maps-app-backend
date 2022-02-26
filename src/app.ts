@@ -21,6 +21,8 @@ app.use(
   })
 );
 
+log.info(config.get<string>("corsOrigin").split(","));
+
 app.use(express.json());
 app.use(helmet());
 app.use(
@@ -32,8 +34,7 @@ app.use(
 app.use(
   cookieSession({
     signed: false,
-    // secure: process.env.NODE_ENV !== "development",
-    secure: false,
+    secure: process.env.NODE_ENV !== "development",
   })
 );
 
