@@ -34,7 +34,7 @@ app.use(
 app.use(
   cookieSession({
     signed: false,
-    sameSite: false,
+    sameSite: "none",
     secure: process.env.NODE_ENV !== "development",
   })
 );
