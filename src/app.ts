@@ -21,8 +21,6 @@ app.use(
   })
 );
 
-console.log("LOS CAMBIOS SI SE VEN");
-
 console.info(config.get<string>("corsOrigin").split(","));
 
 app.use(express.json());
@@ -30,7 +28,6 @@ app.use(helmet());
 app.use(
   cors({
     origin: config.get<string>("corsOrigin").split(","),
-    credentials: true,
   })
 );
 app.use(
