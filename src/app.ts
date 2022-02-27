@@ -21,6 +21,8 @@ app.use(
   })
 );
 
+console.log("LOS CAMBIOS SI SE VEN");
+
 console.info(config.get<string>("corsOrigin").split(","));
 
 app.use(express.json());
@@ -34,7 +36,7 @@ app.use(
 app.use(
   cookieSession({
     signed: false,
-    secure: false,
+    secure: process.env.NODE_ENV !== "development",
   })
 );
 
