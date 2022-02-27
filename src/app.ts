@@ -29,14 +29,13 @@ app.use(
   cors({
     origin: config.get<string>("corsOrigin").split(","),
     credentials: true,
-    exposedHeaders: ["set-cookie"],
   })
 );
 app.use(
   cookieSession({
     signed: false,
     sameSite: "none",
-    secure: process.env.NODE_ENV !== "development",
+    secure: false,
   })
 );
 
