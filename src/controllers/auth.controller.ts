@@ -6,7 +6,7 @@ import { BadRequestError } from "../helpers/errors/bad-request-error";
 import config from "config";
 
 export const signin = async (req: Request, res: Response) => {
-  console.log(`\n\nREQUEST ON SIGNIN\n`, req);
+  console.log(`\n\nREQUEST ON SIGNIN\n`, req.headers);
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });

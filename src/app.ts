@@ -20,8 +20,8 @@ app.use(
   })
 );
 
-console.info(config.get<string>("corsOrigin").split(","));
 const corsOrigin: string[] = config.get<string>("corsOrigin").split(",");
+console.info(corsOrigin);
 
 app.use(express.json());
 app.use(
