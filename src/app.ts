@@ -1,6 +1,5 @@
 import express from "express";
 import "express-async-errors";
-import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 import cookieSession from "cookie-session";
@@ -39,7 +38,6 @@ app.use(
     secure: process.env.NODE_ENV !== "development",
   })
 );
-app.use(helmet());
 
 // verify if exists a current user
 app.use(currentUser);
