@@ -12,7 +12,7 @@ import { NotFoundError } from "./helpers/errors";
 
 const app = express();
 
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 // middlewares
 app.use(
@@ -22,12 +22,12 @@ app.use(
 );
 
 console.info(config.get<string>("corsOrigin").split(","));
+const corsOrigin: string[] = config.get<string>("corsOrigin").split(",");
 
 app.use(express.json());
-// app.use(helmet());
 app.use(
   cors({
-    origin: config.get<string>("corsOrigin").split(","),
+    origin: corsOrigin,
     credentials: true,
     exposedHeaders: ["Set-Cookie"],
   })
@@ -39,6 +39,7 @@ app.use(
     secure: process.env.NODE_ENV !== "development",
   })
 );
+app.use(helmet());
 
 // verify if exists a current user
 app.use(currentUser);
