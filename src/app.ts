@@ -24,7 +24,7 @@ app.use(
 console.info(config.get<string>("corsOrigin").split(","));
 
 app.use(express.json());
-app.use(helmet());
+// app.use(helmet());
 app.use(
   cors({
     origin: config.get<string>("corsOrigin").split(","),
@@ -34,8 +34,7 @@ app.use(
 app.use(
   cookieSession({
     signed: false,
-    sameSite: "none",
-    secure: process.env.NODE_ENV !== "development",
+    secure: false,
   })
 );
 
