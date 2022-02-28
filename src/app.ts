@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: config.get<string>("corsOrigin").split(","),
-    // credentials: true,
+    credentials: true,
     exposedHeaders: ["Set-Cookie"],
   })
 );
