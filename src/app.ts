@@ -11,7 +11,7 @@ import { NotFoundError } from "./helpers/errors";
 
 const app = express();
 
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 // middlewares
 app.use(
@@ -26,7 +26,7 @@ console.info(corsOrigin);
 app.use(express.json());
 app.use(
   cors({
-    origin: corsOrigin,
+    origin: "https://secure-shore-03892.herokuapp.com",
     credentials: true,
     exposedHeaders: ["Set-Cookie"],
   })
