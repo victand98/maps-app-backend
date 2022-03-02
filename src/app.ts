@@ -26,9 +26,16 @@ console.info(corsOrigin);
 app.use(express.json());
 app.use(
   cors({
-    origin: corsOrigin,
+    origin: function (origin, callback) {
+      if (corsOrigin.indexOf(origin!) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     exposedHeaders: "*",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     allowedHeaders: ["Content-Type", "*"],
   })
 );
