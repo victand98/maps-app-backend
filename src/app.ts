@@ -29,12 +29,14 @@ app.use(
     origin: corsOrigin,
     credentials: true,
     exposedHeaders: "*",
+    methods: ["GET", "PÓST"],
+    allowedHeaders: "*",
   })
 );
 app.use(
   cookieSession({
     signed: false,
-    sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax",
+    sameSite: process.env.NODE_ENV !== "development" ? "none" : false,
     secure: process.env.NODE_ENV !== "development",
   })
 );
