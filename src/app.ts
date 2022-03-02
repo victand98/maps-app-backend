@@ -29,7 +29,7 @@ app.use(
     origin: corsOrigin,
     credentials: true,
     exposedHeaders: "*",
-    allowedHeaders: "*",
+    allowedHeaders: ["Content-Type", "*"],
   })
 );
 app.use(
