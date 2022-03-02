@@ -11,7 +11,7 @@ import { NotFoundError } from "./helpers/errors";
 
 const app = express();
 
-app.set("trust proxy", true);
+// app.set("trust proxy", true);
 
 // middlewares
 app.use(
