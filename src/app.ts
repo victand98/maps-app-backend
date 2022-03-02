@@ -29,7 +29,6 @@ app.use(
     origin: corsOrigin,
     credentials: true,
     exposedHeaders: "*",
-    methods: ["GET", "PÓST"],
     allowedHeaders: "*",
   })
 );
