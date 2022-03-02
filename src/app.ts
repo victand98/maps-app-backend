@@ -26,15 +26,14 @@ console.info(corsOrigin);
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://secure-shore-03892.herokuapp.com",
+    origin: corsOrigin,
     credentials: true,
-    exposedHeaders: ["Set-Cookie"],
   })
 );
 app.use(
   cookieSession({
     signed: false,
-    sameSite: "none",
+    sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax",
     secure: process.env.NODE_ENV !== "development",
   })
 );
