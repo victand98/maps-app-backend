@@ -47,6 +47,11 @@ app.use(
   })
 );
 
+app.use(function (req, res, next) {
+  req.sessionOptions.domain = req.headers.origin;
+  next();
+});
+
 // verify if exists a current user
 app.use(currentUser);
 
