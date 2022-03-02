@@ -35,7 +35,6 @@ app.use(
     },
     credentials: true,
     exposedHeaders: "*",
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     allowedHeaders: ["Content-Type", "*"],
   })
 );
@@ -46,11 +45,6 @@ app.use(
     secure: process.env.NODE_ENV !== "development",
   })
 );
-
-app.use(function (req, res, next) {
-  req.sessionOptions.domain = req.headers.origin;
-  next();
-});
 
 // verify if exists a current user
 app.use(currentUser);
