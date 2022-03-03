@@ -29,7 +29,7 @@ export const signin = async (req: Request, res: Response) => {
     jwt: userJWT,
   };
 
-  res.status(200).json(user);
+  res.status(200).json({ ...user.toJSON(), accessToken: userJWT });
 };
 
 export const logout = (req: Request, res: Response) => {
