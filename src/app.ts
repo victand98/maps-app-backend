@@ -6,12 +6,12 @@ import cookieSession from "cookie-session";
 import config from "config";
 import log from "./helpers/logger";
 import routes from "./routes";
-import { currentUser, ErrorHandler } from "./middlewares";
+import { currentUser, ErrorHandler, MongoErrorHandler } from "./middlewares";
 import { NotFoundError } from "./helpers/errors";
 
 const app = express();
 
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 // middlewares
 app.use(
@@ -57,6 +57,7 @@ app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
 
+app.use(MongoErrorHandler);
 app.use(ErrorHandler);
 
 export { app };

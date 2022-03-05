@@ -33,6 +33,7 @@ const PlaceTypeSchema = new mongoose.Schema(
     icon: {
       type: String,
       required: true,
+      unique: true,
     },
     color: {
       type: String,
