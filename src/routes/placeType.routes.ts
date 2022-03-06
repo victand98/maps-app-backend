@@ -7,5 +7,6 @@ const placeTypeRouter = Router();
 
 placeTypeRouter.get("/", use(placeTypeController.all));
 placeTypeRouter.post("/", requireAuth, use(placeTypeController.save));
+placeTypeRouter.put("/:id", requireAuth, use(placeTypeController.update));
 
 export { placeTypeRouter };

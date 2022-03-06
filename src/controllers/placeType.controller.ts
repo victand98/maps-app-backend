@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { NotFoundError } from "../helpers/errors";
 import { PlaceType, PlaceTypeAttrs } from "../models";
 import { CustomRequest } from "../types";
 
@@ -24,4 +25,19 @@ export const save = async (
   await placeType.save();
 
   return res.status(201).json(placeType);
+};
+
+/**
+ * Update one place type.
+ * @route PUT /placetype/
+ */
+export const update = async (req: Request, res: Response) => {
+  const placeType = await PlaceType.findById(req.params.id);
+
+  if (!placeType) throw new NotFoundError();
+
+  placeType.set(req.body);
+  await placeType.save();
+
+  res.json(placeType);
 };
