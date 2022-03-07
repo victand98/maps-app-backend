@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { MongoError, MongoServerError } from "mongodb";
-import mongoose from "mongoose";
+import { Error as MongooseError } from "mongoose";
 import { CustomMongoError } from "../helpers/errors/custom-mongo-error";
 
 export const MongoErrorHandler = (
@@ -9,7 +9,10 @@ export const MongoErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof MongoError || err instanceof mongoose.Error) {
+  if (
+    err instanceof MongoError ||
+    err instanceof MongooseError.ValidationError
+  ) {
     const mongoError = getMongoError(err);
     next(mongoError);
   }
@@ -17,7 +20,9 @@ export const MongoErrorHandler = (
   next(err);
 };
 
-const getMongoError = (err: MongoError | mongoose.Error): CustomMongoError => {
+const getMongoError = (
+  err: MongoError | MongooseError.ValidationError
+): CustomMongoError => {
   console.log("[MONGO ERROR]", err);
   switch (err.constructor) {
     case MongoServerError: {
@@ -33,10 +38,10 @@ const getMongoError = (err: MongoError | mongoose.Error): CustomMongoError => {
       }
     }
 
-    case mongoose.Error.ValidationError: {
-      const mongoValidationError = err as mongoose.Error.ValidationError;
+    case MongooseError.ValidationError: {
+      const mongoValidationError = err as MongooseError.ValidationError;
       let errors = Object.values(mongoValidationError.errors).map((el) => {
-        const err = el as mongoose.Error.CastError;
+        const err = el as MongooseError.CastError;
         return {
           message: "El campo ingresado no es válido",
           field: err.path,
