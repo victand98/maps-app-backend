@@ -25,11 +25,15 @@ export const currentUser = (
 ) => {
   console.log(`\nREQUEST\n`, req.headers);
   console.log("\nREQ.SESSION\n", req.session);
-  if (!req.session?.jwt) return next();
+
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) return next();
 
   try {
     const jwtKey = config.get<string>("jwtKey");
-    const payload = jwt.verify(req.session.jwt, jwtKey) as UserPayload;
+    const accessToken = authHeader.split(" ")[1];
+    const payload = jwt.verify(accessToken, jwtKey) as UserPayload;
     req.currentUser = payload;
   } catch (error) {}
 
