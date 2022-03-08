@@ -36,6 +36,21 @@ export const save = async (req: CustomRequest<PlaceAttrs>, res: Response) => {
 };
 
 /**
+ * Update one place.
+ * @route PUT /place/:id
+ */
+export const update = async (req: Request, res: Response) => {
+  const place = await Place.findById(req.params.id);
+
+  if (!place) throw new NotFoundError();
+
+  place.set(req.body);
+  await place.save();
+
+  res.json(place);
+};
+
+/**
  * Remove one place.
  * @route DELETE /place/:id
  */

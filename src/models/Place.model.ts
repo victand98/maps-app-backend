@@ -7,6 +7,7 @@ interface PlaceAttrs {
   formattedAddress?: string;
   location: PointDocument;
   type: PlaceTypeDoc;
+  status: boolean;
 }
 
 interface PlaceModel extends mongoose.Model<PlaceDoc> {
@@ -18,6 +19,7 @@ interface PlaceDoc extends mongoose.Document {
   formattedAddress?: string;
   location: PointDocument;
   type: PlaceTypeDoc;
+  status: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -34,6 +36,10 @@ const PlaceSchema = new mongoose.Schema(
       required: true,
     },
     type: { type: mongoose.Types.ObjectId, ref: "PlaceType", required: true },
+    status: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
