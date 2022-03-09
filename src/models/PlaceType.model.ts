@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
-import { PlaceTypes } from "../types";
 
 interface PlaceTypeAttrs {
-  name: PlaceTypes;
+  name: string;
   description?: string;
   icon: string;
+  color: string;
+  status: boolean;
 }
 
 interface PlaceTypeModel extends mongoose.Model<PlaceTypeDoc> {
@@ -12,9 +13,11 @@ interface PlaceTypeModel extends mongoose.Model<PlaceTypeDoc> {
 }
 
 interface PlaceTypeDoc extends mongoose.Document {
-  name: PlaceTypes;
+  name: string;
   description?: string;
   icon: string;
+  color: string;
+  status: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -24,13 +27,21 @@ const PlaceTypeSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      enum: Object.values(PlaceTypes),
       unique: true,
     },
     description: String,
     icon: {
       type: String,
       required: true,
+      unique: true,
+    },
+    color: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: Boolean,
+      default: true,
     },
   },
   {
