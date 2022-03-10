@@ -7,6 +7,11 @@ import {
 interface BikewayAttrs {
   name: string;
   location: LineStringDocument;
+  color?: string;
+  width?: number;
+  opacity?: number;
+  description?: string;
+  status: boolean;
 }
 
 interface BikewayModel extends mongoose.Model<BikewayDoc> {
@@ -16,6 +21,11 @@ interface BikewayModel extends mongoose.Model<BikewayDoc> {
 interface BikewayDoc extends mongoose.Document {
   name: string;
   location: LineStringDocument;
+  color: string;
+  width: number;
+  opacity: number;
+  description: string;
+  status: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -29,6 +39,23 @@ const BikewaySchema = new mongoose.Schema(
     location: {
       type: LineStringSchema,
       required: true,
+    },
+    color: {
+      type: String,
+      default: "#5048E5",
+    },
+    width: {
+      type: Number,
+      default: 3,
+    },
+    opacity: {
+      type: Number,
+      default: 1,
+    },
+    description: String,
+    status: {
+      type: Boolean,
+      default: true,
     },
   },
   {

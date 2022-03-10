@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Bikeway, BikewayAttrs } from "../models";
-import { CustomRequest } from "../types";
+import { NotFoundError } from "../helpers/errors";
+import { Bikeway } from "../models";
 
 /**
  * Get all Bikeways.
@@ -12,12 +12,37 @@ export const all = async (req: Request, res: Response) => {
 };
 
 /**
+ * Get one Bikeway.
+ * @route GET /bikeway/:id
+ */
+export const one = async (req: Request, res: Response) => {
+  const bikeway = await Bikeway.findById(req.params.id);
+  if (!bikeway) throw new NotFoundError();
+  return res.json(bikeway);
+};
+
+/**
  * Save one bikeway.
  * @route POST /bikeway/
  */
-export const save = async (req: CustomRequest<BikewayAttrs>, res: Response) => {
+export const save = async (req: Request, res: Response) => {
   const bikeway = Bikeway.build(req.body);
   await bikeway.save();
 
   return res.status(201).json(bikeway);
+};
+
+/**
+ * Update one bikeway.
+ * @route PUT /bikeway/:id
+ */
+export const update = async (req: Request, res: Response) => {
+  const bikeway = await Bikeway.findById(req.params.id);
+
+  if (!bikeway) throw new NotFoundError();
+
+  bikeway.set(req.body);
+  await bikeway.save();
+
+  res.json(bikeway);
 };
