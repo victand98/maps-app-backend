@@ -7,7 +7,7 @@ import { User } from "../models";
  * @route GET /user/
  */
 export const all = async (req: Request, res: Response) => {
-  const users = await User.find();
+  const users = await User.find().populate("role");
   return res.json(users);
 };
 

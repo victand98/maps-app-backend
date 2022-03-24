@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
 import config from "config";
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { RoleDoc } from "../models";
 
 interface UserPayload {
   id: string;
@@ -8,6 +9,7 @@ interface UserPayload {
   firstName: string;
   lastName: string;
   status: boolean;
+  role: RoleDoc;
 }
 
 declare global {
@@ -23,9 +25,6 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(`\nREQUEST\n`, req.headers);
-  console.log("\nREQ.SESSION\n", req.session);
-
   const authHeader = req.headers.authorization;
 
   if (!authHeader) return next();
