@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import { Place, PlaceAttrs, PlaceDoc } from "./Place.model";
 
 interface ParkingPointAttrs extends PlaceAttrs {
-  spots: number;
-  occupied: number;
+  openingTime: string;
+  closingTime: string;
 }
 
 interface ParkingPointModel extends mongoose.Model<ParkingPointDoc> {
@@ -11,19 +11,13 @@ interface ParkingPointModel extends mongoose.Model<ParkingPointDoc> {
 }
 
 interface ParkingPointDoc extends PlaceDoc {
-  spots: number;
-  occupied: number;
+  openingTime: string;
+  closingTime: string;
 }
 
 const ParkingPointSchema = new mongoose.Schema({
-  spots: {
-    type: Number,
-    required: true,
-  },
-  occupied: {
-    type: Number,
-    required: true,
-  },
+  openingTime: String,
+  closingTime: String,
 });
 
 ParkingPointSchema.statics.build = (attrs: ParkingPointAttrs) =>
@@ -34,4 +28,4 @@ const ParkingPoint = Place.discriminator<ParkingPointDoc, ParkingPointModel>(
   ParkingPointSchema
 );
 
-export { ParkingPoint, ParkingPointAttrs };
+export { ParkingPoint, ParkingPointDoc, ParkingPointAttrs };

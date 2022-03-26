@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import { Password } from "../helpers/Password";
-import { User } from "../models";
+import { Role, User } from "../models";
 import jwt from "jsonwebtoken";
 import { BadRequestError } from "../helpers/errors/bad-request-error";
 import config from "config";
+import { Roles } from "../types";
 
 export const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate("role");
 
   if (!user) throw new BadRequestError("Las credenciales no son válidas");
 
@@ -30,6 +31,18 @@ export const signin = async (req: Request, res: Response) => {
   };
 
   res.status(200).json({ ...user.toJSON(), accessToken: userJWT });
+};
+
+export const signup = async (req: Request, res: Response) => {
+  const user = User.build(req.body);
+  const cyclistRole = await Role.findOne({ name: Roles.cyclist });
+  if (!cyclistRole)
+    throw new BadRequestError("No se ha encontrado un rol para el usuario");
+
+  user.role = cyclistRole.id;
+  await user.save();
+
+  res.status(201).json(user);
 };
 
 export const logout = (req: Request, res: Response) => {

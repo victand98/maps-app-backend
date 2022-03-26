@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Password } from "../helpers/Password";
+import { RoleDoc } from "./Role.model";
 
 interface UserAttrs {
   firstName: string;
@@ -7,6 +8,7 @@ interface UserAttrs {
   email: string;
   password: string;
   status: boolean;
+  role: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -19,6 +21,7 @@ interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
   status: boolean;
+  role: RoleDoc;
   createdAt: string;
   updatedAt: string;
 }
@@ -32,6 +35,11 @@ const UserSchema = new mongoose.Schema(
     status: {
       type: Boolean,
       default: true,
+    },
+    role: {
+      type: mongoose.Types.ObjectId,
+      ref: "Role",
+      required: true,
     },
   },
   {
