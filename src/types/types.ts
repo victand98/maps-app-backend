@@ -14,6 +14,12 @@ export enum Permissions {
   "save:parkingPoint" = "save:parkingPoint",
   "update:parkingPoint" = "update:parkingPoint",
 
+  "save:parkingPointStand" = "save:parkingPointStand",
+  "update:parkingPointStand" = "update:parkingPointStand",
+
+  "save:standHistory" = "save:standHistory",
+  "update:standHistory" = "update:standHistory",
+
   "save:place" = "save:place",
   "update:place" = "update:place",
   "delete:place" = "delete:place",
@@ -26,4 +32,10 @@ export enum PlaceTypes {
   parking = "Estacionamiento",
   park = "Parque",
   stream = "Quebrada",
+}
+
+export enum ParkingPointStandStatus {
+  occupied = "Ocupado",
+  unoccupied = "Desocupado",
+  disabled = "Deshabilitado",
 }

@@ -7,6 +7,7 @@ import { Permissions } from "../types";
 const parkingPointRouter = Router();
 
 parkingPointRouter.get("/", use(parkingPointController.all));
+parkingPointRouter.get("/:id", use(parkingPointController.one));
 parkingPointRouter.post(
   "/",
   requireAuth,

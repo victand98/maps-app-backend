@@ -50,6 +50,34 @@ export const permissionData: PermissionAttrs[] = [
   },
 
   /**
+   * Parking Point Stand
+   */
+  {
+    name: Permissions["save:parkingPointStand"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
+    name: Permissions["update:parkingPointStand"],
+    status: true,
+    roles: [Roles.admin],
+  },
+
+  /**
+   * Stand History
+   */
+  {
+    name: Permissions["save:standHistory"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
+    name: Permissions["update:standHistory"],
+    status: true,
+    roles: [Roles.admin],
+  },
+
+  /**
    * Places
    */
   {
