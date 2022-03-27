@@ -12,6 +12,17 @@ export const all = async (req: Request, res: Response) => {
 };
 
 /**
+ * Get one user.
+ * @route GET /user/:id
+ */
+export const one = async (req: Request, res: Response) => {
+  const user = await User.findById(req.params.id).populate("role");
+  if (!user) throw new NotFoundError();
+
+  return res.json(user);
+};
+
+/**
  * Save one user.
  * @route POST /user/
  */

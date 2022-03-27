@@ -4,9 +4,17 @@ export enum Roles {
 }
 
 export enum Permissions {
+  "update:password" = "update:password",
+
   "read:users" = "read:users",
+  "read:user" = "read:user",
   "save:user" = "save:user",
   "update:user" = "update:user",
+
+  "read:roles" = "read:roles",
+  "read:role" = "read:role",
+  "save:role" = "save:role",
+  "update:role" = "update:role",
 
   "save:bikeway" = "save:bikeway",
   "update:bikeway" = "update:bikeway",

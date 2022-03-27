@@ -3,6 +3,15 @@ import { Permissions, Roles } from "../../types";
 
 export const permissionData: PermissionAttrs[] = [
   /**
+   * Auth
+   */
+  {
+    name: Permissions["update:password"],
+    status: true,
+    roles: [Roles.admin, Roles.cyclist],
+  },
+
+  /**
    * Users
    */
   {
@@ -11,12 +20,41 @@ export const permissionData: PermissionAttrs[] = [
     roles: [Roles.admin],
   },
   {
+    name: Permissions["read:user"],
+    status: true,
+    roles: [Roles.admin, Roles.cyclist],
+  },
+  {
     name: Permissions["save:user"],
     status: true,
     roles: [Roles.admin],
   },
   {
     name: Permissions["update:user"],
+    status: true,
+    roles: [Roles.admin, Roles.cyclist],
+  },
+
+  /**
+   * Roles
+   */
+  {
+    name: Permissions["read:roles"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
+    name: Permissions["read:role"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
+    name: Permissions["save:role"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
+    name: Permissions["update:role"],
     status: true,
     roles: [Roles.admin],
   },

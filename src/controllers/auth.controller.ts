@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { BadRequestError } from "../helpers/errors/bad-request-error";
 import config from "config";
 import { Roles } from "../types";
+import { NotFoundError } from "../helpers/errors";
 
 export const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -52,4 +53,22 @@ export const logout = (req: Request, res: Response) => {
 
 export const currentUser = (req: Request, res: Response) => {
   res.json({ currentUser: req.currentUser || null });
+};
+
+export const updatePassword = async (req: Request, res: Response) => {
+  const { password, newPassword } = req.body;
+  const user = await User.findById(req.currentUser!.id);
+  if (!user) throw new NotFoundError();
+
+  const passwordsMatch = await Password.compare(user.password, password);
+  if (!passwordsMatch)
+    throw new BadRequestError(
+      "Su contraseña actual no coincide con la ingresada",
+      "password"
+    );
+
+  user.set({ password: newPassword });
+  await user.save();
+
+  res.json(user);
 };

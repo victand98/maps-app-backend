@@ -12,6 +12,12 @@ userRouter.get(
   authorization(Permissions["read:users"]),
   use(userController.all)
 );
+userRouter.get(
+  "/:id",
+  requireAuth,
+  authorization(Permissions["read:user"]),
+  use(userController.one)
+);
 userRouter.post(
   "/",
   requireAuth,
