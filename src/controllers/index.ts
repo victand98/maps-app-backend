@@ -5,5 +5,6 @@ export * as parkingPointStandController from "./parkingPointStand.controller";
 export * as placeController from "./place.controller";
 export * as placeTypeController from "./placeType.controller";
 export * as roleController from "./role.controller";
+export * as routeController from "./route.controller";
 export * as standHistoryController from "./standHistory.controller";
 export * as userController from "./user.controller";

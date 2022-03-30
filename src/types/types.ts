@@ -34,6 +34,13 @@ export enum Permissions {
 
   "save:placeType" = "save:placeType",
   "update:placeType" = "update:placeType",
+
+  "read:routes" = "read:routes",
+  "read:myRoutes" = "read:myRoutes",
+  "read:currentRoute" = "read:currentRoute",
+  "read:route" = "read:route",
+  "save:route" = "save:route",
+  "update:route" = "update:route",
 }
 
 export enum PlaceTypes {
@@ -46,4 +53,17 @@ export enum ParkingPointStandStatus {
   occupied = "Ocupado",
   unoccupied = "Desocupado",
   disabled = "Deshabilitado",
+}
+
+export enum Purposes {
+  tourism = "Turismo",
+  relaxation = "Relax",
+  walkingWithChildren = "Paseo con los niños",
+  exercise = "Ejercicio",
+  transportation = "Transporte",
+}
+
+export enum BikeTypes {
+  public = "Pública",
+  private = "Privada",
 }

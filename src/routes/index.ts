@@ -6,6 +6,7 @@ import { parkingPointStandRouter } from "./parkingPointStand.routes";
 import { placeRouter } from "./place.routes";
 import { placeTypeRouter } from "./placeType.routes";
 import { roleRouter } from "./role.routes";
+import { routeRouter } from "./route.routes";
 import { standHistoryRouter } from "./standHistory.routes";
 import { userRouter } from "./user.routes";
 
@@ -17,6 +18,7 @@ export default (app: Express) => {
   app.use("/place", placeRouter);
   app.use("/placetype", placeTypeRouter);
   app.use("/role", roleRouter);
+  app.use("/route", routeRouter);
   app.use("/standhistory", standHistoryRouter);
   app.use("/user", userRouter);
 };

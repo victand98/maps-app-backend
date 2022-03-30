@@ -5,15 +5,25 @@ export interface LineStringDocument extends mongoose.Document {
   coordinates: Array<number[]>;
 }
 
-export const LineStringSchema = new mongoose.Schema<LineStringDocument>({
-  type: {
-    type: String,
-    enum: ["LineString"],
-    default: "LineString",
-    required: true,
+export const LineStringSchema = new mongoose.Schema<LineStringDocument>(
+  {
+    type: {
+      type: String,
+      enum: ["LineString"],
+      default: "LineString",
+      required: true,
+    },
+    coordinates: {
+      type: [[Number]],
+      required: true,
+    },
   },
-  coordinates: {
-    type: [[Number]],
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
