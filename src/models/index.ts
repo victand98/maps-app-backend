@@ -5,5 +5,6 @@ export * from "./Permission.model";
 export * from "./Place.model";
 export * from "./PlaceType.model";
 export * from "./Role.model";
+export * from "./Route.model";
 export * from "./StandHistory.model";
 export * from "./User.model";
