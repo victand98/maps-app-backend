@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Password } from "../helpers/Password";
+import { CyclistTypes, Genders } from "../types";
 import { RoleDoc } from "./Role.model";
 
 interface UserAttrs {
@@ -9,6 +10,8 @@ interface UserAttrs {
   password: string;
   status: boolean;
   role: string;
+  cyclistType?: CyclistTypes;
+  gender?: Genders;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -22,6 +25,8 @@ interface UserDoc extends mongoose.Document {
   password: string;
   status: boolean;
   role: RoleDoc;
+  cyclistType?: CyclistTypes;
+  gender?: Genders;
   createdAt: string;
   updatedAt: string;
 }
@@ -35,6 +40,14 @@ const UserSchema = new mongoose.Schema(
     status: {
       type: Boolean,
       default: true,
+    },
+    cyclistType: {
+      type: String,
+      enum: Object.values(CyclistTypes),
+    },
+    gender: {
+      type: String,
+      enum: Object.values(Genders),
     },
     role: {
       type: mongoose.Types.ObjectId,

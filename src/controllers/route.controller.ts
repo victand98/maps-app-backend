@@ -7,7 +7,10 @@ import { Route } from "../models";
  * @route GET /route/
  */
 export const all = async (req: Request, res: Response) => {
-  const routes = await Route.find().select("-location").populate("user");
+  const routes = await Route.find()
+    .select("-location")
+    .sort({ createdAt: -1 })
+    .populate("user");
   return res.json(routes);
 };
 
@@ -16,9 +19,9 @@ export const all = async (req: Request, res: Response) => {
  * @route GET /route/me
  */
 export const allMe = async (req: Request, res: Response) => {
-  const routes = await Route.find({ user: req.currentUser!.id }).select(
-    "-location"
-  );
+  const routes = await Route.find({ user: req.currentUser!.id })
+    .select("-location")
+    .sort({ createdAt: -1 });
   return res.json(routes);
 };
 
