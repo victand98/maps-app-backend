@@ -120,7 +120,11 @@ export const downloadCSV = async (req: Request, res: Response) => {
     ],
   });
 
-  const filePath: string = path.join(__dirname, "..", "public", "rutas.csv");
+  const publicPath = path.join(__dirname, "..", "public");
+  const filePath: string = path.join(publicPath, "rutas.csv");
+  if (!fs.existsSync(publicPath)) {
+    fs.mkdirSync(publicPath);
+  }
   fs.writeFileSync(filePath, csv, { encoding: "utf-8" });
 
   res.download(filePath);
