@@ -162,6 +162,11 @@ export const permissionData: PermissionAttrs[] = [
     roles: [Roles.admin, Roles.cyclist],
   },
   {
+    name: Permissions["download:routes"],
+    status: true,
+    roles: [Roles.admin],
+  },
+  {
     name: Permissions["read:currentRoute"],
     status: true,
     roles: [Roles.admin, Roles.cyclist],

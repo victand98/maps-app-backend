@@ -37,6 +37,7 @@ export enum Permissions {
 
   "read:routes" = "read:routes",
   "read:myRoutes" = "read:myRoutes",
+  "download:routes" = "download:routes",
   "read:currentRoute" = "read:currentRoute",
   "read:route" = "read:route",
   "save:route" = "save:route",
