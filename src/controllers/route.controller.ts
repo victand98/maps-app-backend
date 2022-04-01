@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
+import { parseAsync } from "json2csv";
 import { NotFoundError } from "../helpers/errors";
-import { Route } from "../models";
+import { Route, RouteDoc } from "../models";
+import fs from "fs";
+import path from "path";
 
 /**
  * Get all routes.
@@ -57,6 +60,70 @@ export const save = async (req: Request, res: Response) => {
   await route.save();
 
   return res.status(201).json(route);
+};
+
+export const downloadCSV = async (req: Request, res: Response) => {
+  const routes = await Route.find().sort({ createdAt: -1 }).populate("user");
+
+  const fields = [
+    {
+      label: "Usuario",
+      value: "user",
+    },
+    {
+      label: "Ruta",
+      value: "ruta",
+    },
+    {
+      label: "Nombre de la ruta",
+      value: "name",
+    },
+    {
+      label: "Fecha",
+      value: "createdAt",
+    },
+    {
+      label: "Hora de inicio",
+      value: "startTime",
+    },
+    {
+      label: "Hora fin",
+      value: "endTime",
+    },
+    {
+      label: "Propósito",
+      value: "purpose",
+    },
+    {
+      label: "Tipo de bicicleta",
+      value: "bikeType",
+    },
+  ];
+  const csv = await parseAsync(routes, {
+    fields,
+    transforms: [
+      (item: RouteDoc) => {
+        return {
+          ...item,
+          user: `${item.user.firstName} ${item.user.lastName}`,
+          ruta: item.location
+            ? JSON.stringify(item.location.coordinates)
+            : "En progreso",
+          name: item.name,
+          createdAt: item.createdAt,
+          startTime: item.startTime,
+          endTime: item.endTime || "Por definir",
+          purpose: item.purpose,
+          bikeType: item.bikeType,
+        };
+      },
+    ],
+  });
+
+  const filePath: string = path.join(__dirname, "..", "public", "rutas.csv");
+  fs.writeFileSync(filePath, csv, { encoding: "utf-8" });
+
+  res.download(filePath);
 };
 
 /**

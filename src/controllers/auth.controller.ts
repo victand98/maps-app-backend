@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import { Password } from "../helpers/Password";
-import { Role, User } from "../models";
-import jwt from "jsonwebtoken";
-import { BadRequestError } from "../helpers/errors/bad-request-error";
 import config from "config";
-import { Roles } from "../types";
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import { NotFoundError } from "../helpers/errors";
+import { BadRequestError } from "../helpers/errors/bad-request-error";
+import { Password } from "../helpers/Password";
+import { Permission, Role, User } from "../models";
+import { Roles } from "../types";
 
 export const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -53,6 +53,18 @@ export const logout = (req: Request, res: Response) => {
 
 export const currentUser = (req: Request, res: Response) => {
   res.json({ currentUser: req.currentUser || null });
+};
+
+export const userPermissions = async (req: Request, res: Response) => {
+  if (req.currentUser) {
+    const permissions = await Permission.find({
+      roles: req.currentUser.role.id,
+    });
+
+    return res.json(permissions);
+  }
+
+  res.json([]);
 };
 
 export const updatePassword = async (req: Request, res: Response) => {

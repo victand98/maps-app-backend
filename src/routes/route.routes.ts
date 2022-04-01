@@ -25,6 +25,12 @@ routeRouter.get(
   use(routeController.currentRoute)
 );
 routeRouter.get(
+  "/download/csv",
+  requireAuth,
+  authorization(Permissions["download:routes"]),
+  use(routeController.downloadCSV)
+);
+routeRouter.get(
   "/:id",
   requireAuth,
   authorization(Permissions["read:route"]),
