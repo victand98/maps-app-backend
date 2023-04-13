@@ -4,7 +4,6 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieSession from "cookie-session";
 import config from "config";
-import log from "./helpers/logger";
 import routes from "./routes";
 import { currentUser, ErrorHandler, MongoErrorHandler } from "./middlewares";
 import { NotFoundError } from "./helpers/errors";
@@ -14,11 +13,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 // middlewares
-app.use(
-  morgan("dev", {
-    stream: { write: (message: string) => log.info(message) },
-  })
-);
+app.use(morgan("dev"));
 
 const corsOrigin: string[] = config.get<string>("corsOrigin").split(",");
 console.info(corsOrigin);
