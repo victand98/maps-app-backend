@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config nodemon.json src/index.ts",
-    "postinstall": "tsc",
     "start": "node dist/index.js",
     "build": "tsc",
     "deploy": "git push heroku main"
@@ -37,7 +36,7 @@
     "express-async-errors": "^3.1.1",
     "helmet": "^4.6.0",
     "json2csv": "^5.0.7",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.2.2",
     "morgan": "^1.10.0",
     "pino": "^6.13.2",
