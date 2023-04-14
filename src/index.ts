@@ -6,8 +6,8 @@ import { seeders } from "./config/seeders";
 const port = config.get("port") as number;
 const host = config.get("host") as string;
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server started at http://${host}:${port}`);
-  connect();
+  await connect();
   seeders();
 });
